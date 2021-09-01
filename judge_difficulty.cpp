@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<vector<int>> avaible_space(9,vector<int>(9,10));
+vector<vector<int>> avaible_space(10,vector<int>(10,10));
 int cycle_count = 0;
 bool safe(vector<vector<int>>& board, int col , int row,int num){
     for(int i=0;i<9;i++)
@@ -29,7 +29,7 @@ void count_avaible_space(vector<vector<int>>& board){
                         total_posiblilty[board[i][k]] = 0;
                     }
                     if(board[k][j] != 0){
-                        total_posiblilty[board[i][k]] = 0;
+                        total_posiblilty[board[k][j]] = 0;
                     }
                 }
                 for(int k=0;k<3;k++){
@@ -48,13 +48,13 @@ void count_avaible_space(vector<vector<int>>& board){
 }
 
 bool solve(vector<vector<int>>& board){
-    int avaible = 0;  
+    int avaible = 0; 
+    count_avaible_space(board);
     for(int i=0;i<9;i++){
         for(int j=0;j<9;j++){
             avaible += avaible_space[i][j];
         }
     }
-    count_avaible_space(board);
     if(avaible == 0) return true;
     cycle_count += 1;
     pair<int,int> mini;
